@@ -8,7 +8,7 @@ def affine_cipher(plain_char, a, b):
     
     cipher_char = ""
     if plain_char == " ":
-        cipher_chai = " "
+        cipher_char = " "
     elif plain_char.isalpha():
         index = alphabet.index(plain_char)
         cipher_index = (a*index + b) % 26
