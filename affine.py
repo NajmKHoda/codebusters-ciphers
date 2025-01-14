@@ -64,18 +64,23 @@ while (not valid):
 
 # Generate the cipher.
 cipher = {x:affine_cipher(x,a,b) for x in alphabet}
+reverse_cipher = {y:x for x, y in cipher.items()}
 
 # Print the affine cipher's function and the resulting cipher table
 affine_eq = ""
 if (b > 0):
-    affine_eq = "E(x) = ({a_val}x+{b_val}) mod 26".format(a_val=a,b_val=b)
+    affine_eq = f"E(x) = ({a}x+{b}) mod 26"
 elif (b < 0):
-    affine_eq = "E(x) = ({a_val}x-{b_val}) mod 26".format(a_val=a,b_val=abs(b))
+    affine_eq = f"E(x) = ({a}x{b}) mod 26"
 else:
-    affine_eq = "E(x) = {}x mod 26".format(a)
-print("The affine cipher defined by the function {} generates the following cipher:".format(affine_eq))
-print("PT  |  {}".format(" ".join(cipher.keys())))
-print("CT  |  {}".format(" ".join(cipher.values())))
+    affine_eq = f"E(x) = {a}x mod 26"
+print(f"The affine cipher defined by the function {affine_eq} generates the following cipher: \n")
+
+print(f"PT | {' '.join(alphabet)}")
+print(f"CT | {' '.join(cipher[x] for x in alphabet)}\n")
+
+print(f"CT | {' '.join(alphabet)}")
+print(f"PT | {' '.join(reverse_cipher[x] for x in alphabet)}\n")
 
 # Ask the user if they wish for encryption or decryption
 print("Would you like to ENCRYPT or DECRYPT a message?")
@@ -87,14 +92,13 @@ while (not valid):
         # Encrypt the inputted message.
         print("Input a message to be encrypted. All characters that are not letters/spaces will be dropped.")
         message = input()
-        print("The encrypted message is: \n{}".format(translate(message, cipher)))
+        print(f"The encrypted message is: \n{translate(message, cipher)}")
     elif (response.upper() == "DECRYPT"):
         valid = True
         # Decrypt the inputted message.
-        reverse_cipher = {y:x for x,y in cipher.items()}
         print("Input a message to be decrypted. All characters that are not letters/spaces will be dropped.")
         message = input()
-        print("The encrypted message is: \n{}".format(translate(message, reverse_cipher)))
+        print(f"The encrypted message is: \n{translate(message, reverse_cipher)}")
     else:
         print("That is not a valid response. Please input either ENCRYPT or DECRYPT.")
         

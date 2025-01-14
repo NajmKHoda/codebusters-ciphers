@@ -46,23 +46,29 @@ if (offset > 0): # Wrap around the other side
 # Ask whether K1 or K2 encryption is to be used.
 print('Would you like to use K1 (keyword in plaintext) or K2 (keyword in ciphertext) encryption?')
 cipher = {}
+reverse_cipher = {}
 valid = False
 while not valid:
     encryption_type = input().upper()
     match encryption_type:
         case 'K1': # K1: plain alphabet contains keyword, cipher alphabet remains the same
             cipher = dict(zip(altered_alphabet, alphabet))
+            reverse_cipher = dict(zip(alphabet, altered_alphabet))
             valid = True
         case 'K2': # K2: cipher alphabet contains keyword, plain alphabet remains the same
             cipher = dict(zip(alphabet, altered_alphabet))
+            reverse_cipher = dict(zip(altered_alphabet, alphabet))
             valid = True
         case _:
             print('That is not a valid response (K1 or K2). Please try again.')
 
 # Display the cipher table
 print(f'The keyword {keyword} with offset {offset} results in the following {encryption_type} cipher:\n')
-print(f'PT | {' '.join(altered_alphabet if encryption_type == 'K1' else alphabet)} |')
-print(f'CT | {' '.join(alphabet if encryption_type == 'K1' else altered_alphabet)} |\n')
+print(f'PT | {' '.join(alphabet)} |')
+print(f'CT | {' '.join(cipher[x] for x in alphabet)} |\n')
+
+print(f'CT | {' '.join(alphabet)} |')
+print(f'PT | {' '.join(reverse_cipher[x] for x in alphabet)} |\n')
 
 # Obtain the message
 print('Please input the message to be encrypted.')

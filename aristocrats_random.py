@@ -57,6 +57,12 @@ else: # Just a good ol' Aristocrat
             code += char
 
 print('The randomized Aristocrat cipher is shown below:\n')
+
 print(f'PT | {' '.join(alphabet)} |')
 print(f'CT | {' '.join(cipher[letter] for letter in alphabet)} |\n')
+
+reverse_cipher = dict([ (ct, pt) for pt, ct in cipher.items() ])
+print(f'CT | {' '.join(alphabet)} |')
+print(f'PT | {' '.join(reverse_cipher[letter] for letter in alphabet)} |\n')
+
 print(f'The resulting code from this cipher is:\n{code}')
