@@ -36,8 +36,9 @@ print('Please input the message to be encrypted. Note that this can only contain
 message = ''
 valid = False
 while not valid:
-    message = input().upper()
-    if message.isalpha() and message != '':
+    message = input()
+    message = ''.join(c.upper() for c in message if c.isalpha())
+    if message != '':
         if len(message)%2 != 0:
             message += "Z" # Make the message length an even number (divisible by 2)
         valid = True
